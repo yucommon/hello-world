@@ -1,0 +1,108 @@
+@charset "utf-8";
+//引入public.scss文件代码
+@import "public.scss";
+//定义变量
+$color:black;
+$size:16px;
+//sass中的嵌套
+    #nav{
+        @extend .comm;
+         line-height: 100px;
+         background: #0000FF;
+         color:#fff;
+         text-align: center;
+         ul{
+             padding-left:30px;
+             height:80px;
+             background:#006699;
+            list-style: none;
+             li{
+                 float:left;
+                 line-height: 80px;
+                 height: 100%;
+                 width:80px;
+                 background: #F0C600; 
+                  a{
+                    color: $color;
+                    &:hover{
+                        color:green;
+                    }
+                }
+                &:hover{
+                    background:#F20068;
+                }
+             }
+         } 
+    }
+//sass代码重用 方式一：类的继承
+.public {
+    height: 50px;
+    width:500px;
+    margin:20px auto;
+    background: teal;
+}
+#left,#right{
+    @extend .public;
+}
+//代码重用  方式二：使用@mixin  方式定义（支持有参数和无参数）
+//先定义后使用
+@mixin common{
+    width:1000px;
+    height:100px;
+    background: red;
+    margin:0 auto; 
+}
+
+#main{
+    @include common;
+    ul{
+        color:green;
+        margin: 0 auto;
+    }
+}
+//有参数
+@mixin public($h,$color){
+    width:1000px;
+    height:$h;
+    background: $color;
+    margin: 0 auto;
+}
+#banner{
+    @include public(100px,blue);
+}
+//有参数，并且参数可以有默认值
+@mixin public2($h:50px,$color:blue){
+    width:1000px;
+    height:$h;
+    background: $color;
+    margin: 0 auto;
+}
+#foot{
+    @include public2;
+}
+//sass逻辑代码
+//if语句
+$flag:true;
+@if(flag){
+    P{
+        color: red;
+    }
+}@else{
+    p{
+        color: green;
+    }
+}
+//for循环
+@for $i from 1 to 4 {
+    .item-#{$i}{
+        width:2em*$i;
+    }//.item-1,.item-2,.item-3
+}
+
+@for $j from 1 through 4 {
+    .item1-#{$j}{
+        width:2em*$j;
+    }//.item-1,.item-2,.item-3,item-4
+}
+
+
